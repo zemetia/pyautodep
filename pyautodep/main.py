@@ -1,5 +1,6 @@
 import argparse
 import os
+import pypisearch
 
 from pyautodep import PyAutoDep
 
@@ -30,7 +31,8 @@ def main():
     parser.add_argument(
         "-i",
         "--install",
-        action="store_true"
+        action="store_true",
+        help="Install the missing dist"
     )
 
     args = parser.parse_args()
@@ -41,11 +43,12 @@ def main():
     module_path = os.getcwd()
     pad = PyAutoDep(module_path)
 
-    if dir:
-        # pad.from_dir(dir, args.install)
-        pass
-    elif file:
-        pad.from_file(dir, args.install)
+    # if dir:
+    #     # pad.from_dir(dir, args.install)
+    #     print('test')
+    if file:
+        print('test2')
+        pad.from_file(file, args.install)
     else:
         print('Give the argument..')
         print(

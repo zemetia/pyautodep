@@ -1,4 +1,4 @@
-from pypisearch.main import main
+from pyautodep import main
 
 
 if __name__ == "__main__":

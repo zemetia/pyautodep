@@ -4,6 +4,7 @@ from importlib.metadata import packages_distributions
 import sys
 import re
 import requests
+import os
 
 
 class PyAutoDep:
@@ -31,10 +32,15 @@ class PyAutoDep:
             nf = ','.join(not_found)
             print('the package that can\'t install:', nf)
 
-    def grab_modules(files: list[str]) -> list[str]:
+    def get_path(absolute_path: str, relative_path: str):
+        result = os.path.normpath(os.path.join(absolute_path, relative_path))
+        return result
+
+    def grab_modules(path, files: list[str]) -> list[str]:
         modules = set()
         for fname in files:
-            file = open(fname, 'r').read().split('\n')
+            file = open(PyAutoDep.get_path(path, fname),
+                        'r').read().split('\n')
             lines = list(set(file[:15]))
             for line in lines:
                 if re.match('from', line, re.IGNORECASE):
@@ -103,7 +109,7 @@ class PyAutoDep:
 
     def from_file(self, file: str, is_install):
         if len(file) != 0:
-            modules = PyAutoDep.grab_modules(self.abs_path, file)
+            modules = PyAutoDep.grab_modules(self.abs_path, [file])
             dists, not_dists = PyAutoDep.get_distribution_name(modules)
             in_module, in_bi_module, not_module = PyAutoDep.check_modules(
                 dists, not_dists)
