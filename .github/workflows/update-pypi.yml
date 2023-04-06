@@ -1,0 +1,21 @@
+name: Prod Business Frontend Update
+on:
+workflow_dispatch:
+push:
+    branches:
+    - main
+jobs:
+build:
+    name: Pypi Update
+    runs-on: ubuntu-latest
+    steps:
+    - name: ⬇️ Checkout repo
+        uses: actions/checkout@v2
+
+    # - name: SSH to server & execute commands
+    #     script: |
+    #         cd /var/www/business-frontend
+    #         git pull origin main
+    #         yarn install
+    #         yarn build
+    #         pm2 startOrRestart ecosystem.config.js --env production
