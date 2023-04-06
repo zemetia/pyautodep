@@ -1,0 +1,17 @@
+name: Prod Business Frontend Update
+on:
+workflow_dispatch:
+push:
+    branches:
+    - main
+jobs:
+build:
+    name: Pypi Update
+    runs-on: ubuntu-latest
+    steps:
+    - name: ⬇️ Checkout repo
+        uses: actions/checkout@v2
+
+    - name: Prepare File
+        script: |
+            cp README.md /pyautodep

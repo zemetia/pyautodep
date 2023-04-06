@@ -1,6 +1,6 @@
 # PyAutoDep
 
-an auto installer module to install all imported library python on your project
+an auto installer module to install all imported library python on your project (Development)
 
 ## How to Install
 
