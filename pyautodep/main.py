@@ -13,21 +13,22 @@ def main():
         description="Check every single imported python module(s) on your project and install it automatically"
     )
     parser.add_argument(
-        "-f",
-        "--file",
-        metavar="file",
+        "-t",
+        "--type",
+        metavar="type",
         type=str,
-        help="Search all imported python library on the file"
+        help="Search all imported python library from file or directory | -f (file | dir)"
     )
 
     parser.add_argument(
-        "-d",
-        "--dir",
+        "-p",
+        "--path",
         default=".",
-        metavar="dir",
+        metavar="path",
         type=str,
-        help="Search all imported python library on the directory and the branchs",
+        help="The relative path of file / directory",
     )
+
     parser.add_argument(
         "-i",
         "--install",
@@ -37,20 +38,20 @@ def main():
 
     args = parser.parse_args()
 
-    dir = args.dir
-    file = args.file
+    type = args.type
+    path = args.path
 
     module_path = os.getcwd()
     pad = PyAutoDep(module_path)
 
     print('anjay')
 
-    if dir:
-        pad.from_dir(dir, args.install)
-        print('test')
-    # if file:
-    #     print('test2')
-    #     pad.from_file(file, args.install)
+    if type == 'dir' or type == 'folder':
+        pad.from_dir(path, args.install)
+
+    elif type == 'file':
+        pad.from_file(path, args.install)
+
     else:
         print('Give the argument..')
         print(
