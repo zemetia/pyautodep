@@ -1,17 +1,16 @@
-name: Prod Business Frontend Update
+name: Update PyPI Module
 on:
-workflow_dispatch:
-push:
+  workflow_dispatch:
+  push:
     branches:
-    - main
+      - main
 jobs:
-build:
-    name: Pypi Update
+  build:
+    name: PyPI Update
     runs-on: ubuntu-latest
     steps:
-    - name: ⬇️ Checkout repo
+      - name: Checkout repo
         uses: actions/checkout@v2
 
-    - name: Prepare File
-        script: |
-            cp README.md /pyautodep
+      - name: Prepare File
+        run: cp README.md /pyautodep
