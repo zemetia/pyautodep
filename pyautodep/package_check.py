@@ -5,6 +5,7 @@ import sys
 import re
 import requests
 import os
+import fnmatch
 
 
 class PyAutoDep:
@@ -120,15 +121,33 @@ class PyAutoDep:
             print("Installing required modules")
             PyAutoDep.install_packages(not_module)
 
-    # def from_dir(self, file: str, is_install):
-    #     if len(file) != 0:
-    #         modules = PyAutoDep.grab_modules(self.abs_path, file)
-    #         dists, not_dists = PyAutoDep.get_distribution_name(modules)
-    #         in_module, in_bi_module, not_module = PyAutoDep.check_modules(
-    #             dists, not_dists)
+    def get_all_py(abs_path):
+        file_pattern = '*.py'
+        py_files: list[str] = []
 
-    #         PyAutoDep.print_info(in_module, in_bi_module, not_module)
+        # Loop through all the directories and subdirectories from the root path
+        for dirpath, dirnames, filenames in os.walk(abs_path):
+            # Loop through all the files in the current directory
+            for filename in filenames:
+                # Check if the file matches the pattern
+                if fnmatch.fnmatch(filename, file_pattern):
+                    # If the file matches the pattern, print its absolute path
+                    file_path = os.path.join(dirpath, filename)
+                    py_files.append(file_path)
 
-    #     if is_install:
-    #         print("Installing required modules")
-    #         PyAutoDep.install_packages(not_module)
+        return py_files
+
+    def from_dir(self, dir: str, is_install):
+        if len(dir) != 0:
+            files = PyAutoDep.get_all_py(
+                PyAutoDep.get_path(self.abs_path, dir))
+            modules = PyAutoDep.grab_modules(self.abs_path, files)
+            dists, not_dists = PyAutoDep.get_distribution_name(modules)
+            in_module, in_bi_module, not_module = PyAutoDep.check_modules(
+                dists, not_dists)
+
+            PyAutoDep.print_info(in_module, in_bi_module, not_module)
+
+        if is_install:
+            print("Installing required modules")
+            PyAutoDep.install_packages(not_module)

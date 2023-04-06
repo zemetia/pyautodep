@@ -43,12 +43,14 @@ def main():
     module_path = os.getcwd()
     pad = PyAutoDep(module_path)
 
-    # if dir:
-    #     # pad.from_dir(dir, args.install)
-    #     print('test')
-    if file:
-        print('test2')
-        pad.from_file(file, args.install)
+    print('anjay')
+
+    if dir:
+        pad.from_dir(dir, args.install)
+        print('test')
+    # if file:
+    #     print('test2')
+    #     pad.from_file(file, args.install)
     else:
         print('Give the argument..')
         print(
