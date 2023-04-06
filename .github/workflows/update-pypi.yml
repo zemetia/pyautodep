@@ -9,9 +9,9 @@ build:
     name: Pypi Update
     runs-on: ubuntu-latest
     steps:
-    - name: ⬇️ Checkout repo
+        - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
 
-    - name: Prepare File
+        - name: Prepare File
         script: |
             cp README.md /pyautodep
