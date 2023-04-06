@@ -44,8 +44,6 @@ def main():
     module_path = os.getcwd()
     pad = PyAutoDep(module_path)
 
-    print('anjay')
-
     if type == 'dir' or type == 'folder':
         pad.from_dir(path, args.install)
 
