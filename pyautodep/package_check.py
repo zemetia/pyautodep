@@ -109,7 +109,7 @@ class PyAutoDep:
             print("*. " + w)
 
     def from_file(self, file: str, is_install):
-        if len(file) != 0:
+        if len(file) != 0 and fnmatch.fnmatch(file, "*.py"):
             modules = PyAutoDep.grab_modules(
                 [PyAutoDep.get_path(self.abs_path, file)])
             dists, not_dists = PyAutoDep.get_distribution_name(modules)
@@ -118,9 +118,11 @@ class PyAutoDep:
 
             PyAutoDep.print_info(in_module, in_bi_module, not_module)
 
-        if is_install:
-            print("Installing required modules")
-            PyAutoDep.install_packages(not_module)
+            if is_install:
+                print("Installing required modules")
+                PyAutoDep.install_packages(not_module)
+        else:
+            print("input the file path or the file type is not py file ")
 
     def get_all_py(abs_path):
         file_pattern = '*.py'
