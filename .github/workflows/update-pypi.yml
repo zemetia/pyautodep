@@ -12,5 +12,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Prepare File
-        run: sudo cp README.md /pyautodep
+      - name: Copy README.md
+        uses: canastro/copy-file-action@master
+        with:
+          source: "README.md"
+          target: "pyautodep/README.md"
+
+      - name: Copy LICENSE
+        uses: canastro/copy-file-action@master
+        with:
+          source: "LICENSE"
+          target: "pyautodep/license.txt"
