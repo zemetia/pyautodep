@@ -12,6 +12,12 @@ class PyAutoDep:
     def __init__(self, abs_path):
         self.abs_path = abs_path
 
+    def get_module_name(line):
+        match = re.search(r"(from|import)\s+([\w.]+)", line)
+        if match:
+            return match.group(2).split('.')[0]
+        return None
+
     def check_package_availability(package: str):
         res = requests.get('https://pypi.org/project/'+package)
         if res.text.find('404'):
@@ -44,20 +50,12 @@ class PyAutoDep:
                         'r').read().split('\n')
             lines = list(set(file[:15]))
             for line in lines:
-                if re.match('from', line, re.IGNORECASE):
-                    fx = re.sub(r'(?i)from ', '', line)
-                    module = re.sub(r'(?i)import ', '', fx)
-                elif re.match('import', line, re.IGNORECASE):
-                    module = re.sub(r'(?i)import ', '', line)
-                else:
+                module: str = PyAutoDep.get_module_name(line)
+
+                if module == None:
                     continue
 
-                if module.count(' ') == 1:
-                    cname = module.split(' ')
-                    module = cname[0]
-
-                module = module.split('.')[0]
-                modules.add(module)
+                modules.add(module.strip())
         return modules
 
     def get_distribution_name(modules: list):

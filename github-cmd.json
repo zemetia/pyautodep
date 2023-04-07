@@ -1,0 +1,23 @@
+{
+    "gitAC" : [
+        "git add .", 
+        "git commit -m %1"
+    ], 
+    "gitACP" : [
+        "git add .", 
+        "git commit -m %1", 
+        "git push"
+    ], 
+    "gitB" : [
+        "git branch %1", 
+        "git checkout %1"
+    ], 
+    "gitUPG" : [
+        "git config --global user.name %1", 
+        "git config --global user.email %2"
+    ], 
+    "gitUPL" : [
+        "git config user.name %1", 
+        "git config user.email %2"
+    ]
+}

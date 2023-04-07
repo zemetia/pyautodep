@@ -7,7 +7,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
     long_description = "\n" + fh.read()
 
-VERSION = '0.0.2'
+VERSION = '0.1.0'
 DESCRIPTION = 'Check and install python modules'
 LONG_DESCRIPTION = 'Check every single imported python module(s) on your project and install it automatically'
 
@@ -31,5 +31,10 @@ setup(
         "Operating System :: Unix",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: Microsoft :: Windows",
-    ]
+    ],
+    entry_points={
+        'console_scripts': [
+            'pyautodep=pyautodep.__main__:main'
+        ]
+    }
 )
